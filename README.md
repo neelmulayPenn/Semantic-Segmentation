@@ -1,15 +1,25 @@
-# U-Net Semantic Segmentation on Cityscapes
-
+# Semantic Segmentation in Autonomous Driving
+ 
 **ENM 5310 — Data-Driven Modeling and Probabilistic Scientific Computing | University of Pennsylvania**
-
-A from-scratch implementation of a U-Net style encoder-decoder network for pixel-wise semantic segmentation on the Cityscapes urban driving dataset, trained end-to-end in PyTorch on Google Colab.
-
+ 
+A comparative study of two semantic segmentation approaches on the Cityscapes urban driving dataset: a custom U-Net trained from scratch, and a pretrained SegFormer-B5 transformer fine-tuned on the same task. Both models predict per-pixel class labels across 19 urban scene categories and are evaluated side-by-side to contrast CNN-based and transformer-based architectures.
+ 
+| | Part 1: U-Net | Part 2: SegFormer |
+|---|---|---|
+| Notebook | `U_Net_NeelMulay.ipynb` | `SegFormer.ipynb` |
+| Approach | Trained from scratch | Pretrained + decoder fine-tuning |
+| Encoder | 3-stage CNN (64→128→256) | MiT-B5 hierarchical transformer |
+| Training | 50 epochs, full model | 3 epochs, decoder head only |
+| Pixel Accuracy (val) | ~88.5% | — |
+ 
 ---
-
+ 
+# Part 1 — U-Net
+ 
 ## Overview
-
-This project implements a full semantic segmentation pipeline — from raw Cityscapes images to per-pixel class predictions across 19 urban scene categories. The architecture follows the classic U-Net design with skip connections, extended with Group Normalization, Dropout regularization, and a combined Dice + Cross-Entropy loss for handling class imbalance.
-
+ 
+A from-scratch U-Net implementation for pixel-wise semantic segmentation on Cityscapes. The architecture follows the classic encoder-decoder design with skip connections, extended with Group Normalization, Dropout regularization, and a combined Dice + Cross-Entropy loss for handling class imbalance.
+ 
 ---
 
 ## Architecture
