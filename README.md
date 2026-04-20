@@ -117,6 +117,12 @@ Classes with no ground truth pixels in the validation set are excluded from the 
 
 ## Results
 
+### Loss Curve
+
+![Loss Curve](results/unet_acc.png)
+
+Dice loss converges from ~0.85 (train) / ~0.79 (val) at epoch 0 down to **~0.52 train / ~0.50 val** by epoch 50. Validation loss tracks slightly below training loss throughout, consistent with the regularization effect of Dropout2d and augmentation being active only during training. No divergence or overfitting observed.
+
 ### Pixel Accuracy
 
 ![Pixel Accuracy Curve](results/unet_loss.png)
@@ -142,7 +148,6 @@ The results expose a fundamental limitation of training a lightweight CNN from s
 These limitations directly motivated extending this work to a transformer-based architecture. The attention mechanism in transformers captures global scene context from the first layer, which is precisely what a shallow CNN encoder lacks. See [SegFormer-Semantic-Segmentation](https://github.com/neelmulayPenn/SegFormer-Semantic-Segmentation) for the follow-up project using a pretrained SegFormer backbone fine-tuned on Cityscapes, with a direct performance comparison against this U-Net baseline.
 
 ---
-
 ## Skills Demonstrated
 
 - U-Net encoder-decoder architecture implementation from scratch in PyTorch
@@ -151,7 +156,6 @@ These limitations directly motivated extending this work to a transformer-based 
 - Data augmentation pipeline with Albumentations for joint image-mask transforms
 - Per-class IoU evaluation via confusion matrix accumulation
 - Group Normalization and Dropout2d for small-batch training stability
-
 ---
 
 ## Repository Structure
@@ -160,6 +164,7 @@ These limitations directly motivated extending this work to a transformer-based 
 U-Net-Semantic-Segmentation/
 ├── U_Net_NeelMulay.ipynb     # Full pipeline: data loading, model, training, evaluation
 └── results/
+    ├── unet_loss_curve.png   # Dice loss curve (train vs val, 50 epochs)
     ├── unet_loss.png         # Pixel accuracy curve (train vs val, 50 epochs)
     └── unet_result.png       # Qualitative segmentation: input / ground truth / prediction
 ```
@@ -197,4 +202,3 @@ or update `ROOT` in the notebook to point to your local path.
 Open `U_Net_NeelMulay.ipynb` in Google Colab, mount your Google Drive, and run all cells top-to-bottom. A GPU runtime (T4 or better) is recommended.
 
 ---
-
